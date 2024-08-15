@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require "ai_test_writer"
+AiTestWriter.call
