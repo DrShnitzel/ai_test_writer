@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "byebug" if ENV["DEBUG"]
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require "ai_test_writer"
+AiTestWriter.call

@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.email = ["zaitsev.av.work@gmail.com"]
 
   spec.summary = "Gem that generate tests based on a source files"
-  spec.description = "TODO: Write a longer description or delete this line."
   spec.homepage = "TODO: Put your gem's website or public repo URL here."
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"

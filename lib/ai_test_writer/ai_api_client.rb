@@ -19,15 +19,21 @@ module AiTestWriter
       @request_base = Net::HTTP::Post.new(uri.path, HEADERS)
     end
 
-    def call(body)
+    def call(messages)
       request = @request_base.dup
-      request.body = body.to_json
+      puts messages
+      request.body = { model: "gpt-4o", messages: messages }.to_json
 
-      response = http.request(request)
+      response = @http.request(request)
+      puts response.body
 
       raise "Request failed #{response.code} \n\n #{response.body}" if response.code != "200"
 
-      JSON.parse(response.body)
+      parsed_response = JSON.parse(response.body)
+      content = parsed_response["choices"][0]["message"]["content"]
+
+      raise "Content is missing in response #{response.code} \n\n #{response.body}" unless content
+      content
     end
   end
 end

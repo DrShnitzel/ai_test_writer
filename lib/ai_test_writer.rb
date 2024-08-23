@@ -1,20 +1,33 @@
 # frozen_string_literal: true
 
 require_relative "ai_test_writer/version"
+require_relative "ai_test_writer/generator"
 require "optparse"
 
 module AiTestWriter
   def self.call
+    options = {}
     parser = OptionParser.new
 
-    parser.on("--source-file-path", "Path to source file") do |value|
-      source_file_path = value
+    parser.on("--source-file-path PATH", "Path to source file") do |value|
+      options[:source_file_path] = value
     end
-    parser.on("--test-file-path", "Path to new test file") do |value|
-      test_file_path = value
+    parser.on("--test-file-path PATH", "Path to new test file") do |value|
+      options[:test_file_path] = value
+    end
+    parser.on("--test-command COMMAND", "Command to run tests") do |value|
+      options[:test_command] = value
+    end
+    parser.on("--test-command-dir DIR", "Directory to run tests") do |value|
+      options[:test_command_dir] = value
+    end
+    parser.on("--max-iterations N", "Maximum number of iterations") do |value|
+      options[:max_iterations] = value
     end
     parser.parse!
 
-    Generator.new(source_file_path, test_file_path).generate
+    puts options
+
+    Generator.new(**options).generate
   end
 end
