@@ -24,6 +24,9 @@ module AiTestWriter
     parser.on("--max-iterations N", "Maximum number of iterations") do |value|
       options[:max_iterations] = value
     end
+    parser.on("--additional-prompt PROMPT", "Add additional prompt to requests") do |value|
+      options[:additional_prompt] = value
+    end
     parser.parse!
 
     puts options

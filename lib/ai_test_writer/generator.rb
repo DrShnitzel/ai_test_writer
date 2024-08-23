@@ -5,11 +5,12 @@ require "ai_test_writer/ai_api_client"
 
 module AiTestWriter
   class Generator
-    def initialize(source_file_path:, test_file_path:, test_command:, max_iterations:)
+    def initialize(source_file_path:, test_file_path:, test_command:, max_iterations:, additional_prompt:)
       @source_path = source_file_path
       @test_path = test_file_path
       @test_command = test_command
       @max_iterations = max_iterations.to_i || 0
+      @additional_prompt = additional_prompt
       @client = AiApiClient.new
     end
 
@@ -56,6 +57,7 @@ module AiTestWriter
       messages << { role: "user", content: test_code }
       messages << { role: "user", content: errors }
       messages << { role: "user", content: test_template(:minitest) }
+      messages << { role: "user", content: @additional_prompt }
 
       new_test_code = @client.call(messages)
       new_test_file = File.open(@test_path, "wb")
@@ -71,6 +73,7 @@ module AiTestWriter
       messages = prompt_template(:new_test_file)
       messages << { role: "user", content: test_template(:minitest) }
       messages << { role: "user", content: source_code }
+      messages << { role: "user", content: @additional_prompt }
 
       messages
     end
