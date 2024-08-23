@@ -1,4 +1,7 @@
 # AiTestWriter
+# WIP
+
+most things are harcoded and it works only with minitest yet
 
 TODO: Delete this and the text below, and describe your gem
 
